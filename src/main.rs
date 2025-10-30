@@ -14,13 +14,18 @@ fn main() -> Result<()> {
         //println!("{args_s}"); std::process::exit(0);
         is_exclusive(&config, &args_s)
     };
-    if b {
+    let exit_status = if b {
         //
         let cmd2 = args_v.remove(0);
-        let _status = std::process::Command::new(cmd2)
+        let status = std::process::Command::new(&cmd2)
             .args(&args_v)
             .status()
             .expect("failed to execute process: {sccache}");
+        if !status.success() {
+            let dbg_s = args_v.join(" ");
+            eprintln!("AAA: {cmd2} {dbg_s}");
+        }
+        status
     } else {
         //
         let sccache = {
@@ -32,10 +37,19 @@ fn main() -> Result<()> {
                 s.clone()
             }
         };
-        let _status = std::process::Command::new(sccache)
+        let status = std::process::Command::new(&sccache)
             .args(&args_v)
             .status()
             .expect("failed to execute process: {sccache}");
+        if !status.success() {
+            let dbg_s = args_v.join(" ");
+            eprintln!("BBB: {sccache} {dbg_s}");
+        }
+        status
+    };
+    if !exit_status.success() {
+        let code = exit_status.code().unwrap();
+        std::process::exit(code);
     }
     Ok(())
 }
@@ -71,10 +85,13 @@ fn save_default_config(path: &PathBuf) -> Result<()> {
 rustc-wrapper = "{home}/.cargo/bin/sccache"
 
 [[exclusive]]
-string = "--crate_name wayland_protocols"
+string = "--crate-name XXX"
 
 [[exclusive]]
-string = "--crate_name wayland_dev"
+string = "--crate-name wayland_client"
+
+[[exclusive]]
+string = "--crate-name wayland_protocols"
 "#
     );
     fd.write_all(content.as_bytes())?;
@@ -149,10 +166,10 @@ string = "CCC"
 rustc-wrapper = "/home/aki-akaguma/.cargo/bin/sccache"
 
 [[exclusive]]
-string = "--crate_name wayland_protocols"
+string = "--crate-name wayland_protocols"
 
 [[exclusive]]
-string = "--crate_name wayland_dev"
+string = "--crate-name wayland_dev"
 "#,
         )
         .unwrap();
@@ -164,10 +181,10 @@ string = "--crate_name wayland_dev"
     },
     exclusive: [
         Exclusive {
-            string: "--crate_name wayland_protocols",
+            string: "--crate-name wayland_protocols",
         },
         Exclusive {
-            string: "--crate_name wayland_dev",
+            string: "--crate-name wayland_dev",
         },
     ],
 }"#;

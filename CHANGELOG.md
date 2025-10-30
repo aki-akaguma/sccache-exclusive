@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 * README.md
+* `.github/workflow`
 
 ### Fixed
 * bug: faile of exit status

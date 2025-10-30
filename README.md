@@ -84,5 +84,12 @@ at your option.
 [crate-link]: https://crates.io/crates/sccache-exclusive
 [docs-image]: https://docs.rs/sccache-exclusive/badge.svg
 [docs-link]: https://docs.rs/sccache-exclusive/
-[rustc-image]: https://img.shields.io/badge/rustc-1.72+-blue.svg
+[rustc-image]: https://img.shields.io/badge/rustc-1.76+-blue.svg
 [license-image]: https://img.shields.io/badge/license-Apache2.0/MIT-blue.svg
+
+[test-ubuntu-image]: https://github.com/aki-akaguma/sccache-exclusive/actions/workflows/test-ubuntu.yml/badge.svg
+[test-ubuntu-link]: https://github.com/aki-akaguma/sccache-exclusive/actions/workflows/test-ubuntu.yml
+[test-macos-image]: https://github.com/aki-akaguma/sccache-exclusive/actions/workflows/test-macos.yml/badge.svg
+[test-macos-link]: https://github.com/aki-akaguma/sccache-exclusive/actions/workflows/test-macos.yml
+[test-windows-image]: https://github.com/aki-akaguma/sccache-exclusive/actions/workflows/test-windows.yml/badge.svg
+[test-windows-link]: https://github.com/aki-akaguma/sccache-exclusive/actions/workflows/test-windows.yml

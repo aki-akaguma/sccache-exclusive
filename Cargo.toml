@@ -1,0 +1,23 @@
+[package]
+name = "sccache-exclusive"
+version = "0.1.0"
+edition = "2021"
+
+authors = ["aki <aki.akaguma@hotmail.com>"]
+description = """
+It selectively uses sccache. Do not use sccache to compile the specified crate. For example, a compilation error occurs with sccache.
+"""
+categories = ["command-line-utilities", "development-tools::build-utils"]
+keywords = ["ccache", "sccache"]
+license = "MIT OR Apache-2.0"
+readme = "README.md"
+rust-version = "1.76.0"
+repository = "https://github.com/aki-akaguma/sccache-exclusive"
+
+[[bin]]
+name = "sccache-exclusive"
+
+[dependencies]
+anyhow = "1.0"
+toml = "0.9"
+serde = { version = "1.0", features=["derive"] }

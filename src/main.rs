@@ -57,10 +57,11 @@ fn main() -> Result<()> {
 fn load_config() -> Result<Config> {
     use std::io::Read;
     let config_path = config_path()?;
-    if !std::fs::exists(&config_path)? {
+    let config_p = std::path::Path::new(&config_path);
+    if !config_p.exists() {
         save_default_config(&config_path)?;
     }
-    let mut fd = std::fs::File::open(config_path)?;
+    let mut fd = std::fs::File::open(config_p)?;
     let mut s = String::new();
     fd.read_to_string(&mut s)?;
     let config: Config = toml::from_str(&s)?;

@@ -4,6 +4,9 @@
 [![Docs][docs-image]][docs-link]
 ![Rust Version][rustc-image]
 ![Apache2/MIT licensed][license-image]
+[![Test ubu][test-ubuntu-image]][test-ubuntu-link]
+[![Test mac][test-windows-image]][test-windows-link]
+[![Test win][test-macos-image]][test-macos-link]
 
 It selectively uses sccache. Do not use sccache to compile the specified crate. For example, a compilation error occurs with sccache.
 

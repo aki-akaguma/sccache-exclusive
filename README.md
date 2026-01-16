@@ -60,6 +60,10 @@ string = "--crate-name wayland_client"
 
 [[exclusive]]
 string = "--crate-name wayland_protocols"
+
+[[exclusive]]
+string = ""
+strings = ["--crate-name reqwest", "--target wasm32-unknown-unknown"]
 ```
 
 `~/.config/sccache-exclusive.toml` also has the same `[build]` section as `~/.cargo/config.toml`. Please set the original `sccache`.

@@ -101,7 +101,15 @@ string = "--crate-name wayland_protocols"
 
 fn is_exclusive(config: &Config, args_s: &str) -> bool {
     for exclusive in config.exclusive.iter() {
-        if let Some(_n) = args_s.find(&exclusive.string) {
+        if let Some(v) = &exclusive.strings {
+            for string in v {
+                if let Some(_n) = args_s.find(string) {
+                    continue;
+                }
+                return false;
+            }
+            return true;
+        } else if let Some(_n) = args_s.find(&exclusive.string) {
             return true;
         }
     }
@@ -126,6 +134,7 @@ struct Build {
 #[derive(Debug, Deserialize, Serialize)]
 struct Exclusive {
     string: String,
+    strings: Option<Vec<String>>,
 }
 
 #[cfg(test)]
@@ -141,9 +150,11 @@ mod test {
             exclusive: vec![
                 Exclusive {
                     string: "BBB".to_string(),
+                    strings: None,
                 },
                 Exclusive {
                     string: "CCC".to_string(),
+                    strings: None,
                 },
             ],
         };
@@ -183,9 +194,51 @@ string = "--crate-name wayland_dev"
     exclusive: [
         Exclusive {
             string: "--crate-name wayland_protocols",
+            strings: None,
         },
         Exclusive {
             string: "--crate-name wayland_dev",
+            strings: None,
+        },
+    ],
+}"#;
+        assert_eq!(target, expect);
+    }
+    #[test]
+    fn test3() {
+        let config: Config = toml::from_str(
+            r#"
+[build]
+rustc-wrapper = "/home/aki-akaguma/.cargo/bin/sccache"
+
+[[exclusive]]
+string = "--crate-name wayland_protocols"
+
+[[exclusive]]
+string = ""
+strings = ["--crate-name wayland_dev", "--target=wasm32-unknown-unknown"]
+"#,
+        )
+        .unwrap();
+        //println!("{:#?}", config);
+        let target = format!("{:#?}", config);
+        let expect = r#"Config {
+    build: Build {
+        rustc_wrapper: "/home/aki-akaguma/.cargo/bin/sccache",
+    },
+    exclusive: [
+        Exclusive {
+            string: "--crate-name wayland_protocols",
+            strings: None,
+        },
+        Exclusive {
+            string: "",
+            strings: Some(
+                [
+                    "--crate-name wayland_dev",
+                    "--target=wasm32-unknown-unknown",
+                ],
+            ),
         },
     ],
 }"#;

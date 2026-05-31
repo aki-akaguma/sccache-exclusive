@@ -69,10 +69,8 @@ fn load_config() -> Result<Config> {
 }
 
 fn config_path() -> Result<PathBuf> {
-    let home = std::env::var("HOME")?;
-    let mut pb = PathBuf::new();
-    pb.push(home);
-    pb.push(".config");
+    let mut pb = dirs::config_dir()
+        .ok_or_else(|| anyhow::anyhow!("Could not find config directory"))?;
     pb.push("sccache-exclusive.toml");
     Ok(pb)
 }
@@ -80,7 +78,10 @@ fn config_path() -> Result<PathBuf> {
 fn save_default_config(path: &PathBuf) -> Result<()> {
     use std::io::Write;
     let mut fd = std::fs::File::create(path)?;
-    let home = std::env::var("HOME")?;
+    let home = dirs::home_dir()
+        .ok_or_else(|| anyhow::anyhow!("Could not find home directory"))?
+        .to_string_lossy()
+        .to_string();
     let content = format!(
         r#"[build]
 rustc-wrapper = "{home}/.cargo/bin/sccache"

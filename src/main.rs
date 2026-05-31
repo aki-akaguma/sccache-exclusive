@@ -8,26 +8,13 @@ fn main() -> Result<()> {
     let _cmd = args_v.remove(0);
     let config = load_config()?;
     let b = {
-        //println!("{:#?}", config);
-        //for arg in args { println!("{arg}"); }
         let args_s = args_v.join(" ");
-        //println!("{args_s}"); std::process::exit(0);
         is_exclusive(&config, &args_s)
     };
     let exit_status = if b {
-        //
         let cmd2 = args_v.remove(0);
-        let status = std::process::Command::new(&cmd2)
-            .args(&args_v)
-            .status()
-            .unwrap_or_else(|_| panic!("failed to execute process: {}", cmd2));
-        if !status.success() {
-            let dbg_s = args_v.join(" ");
-            eprintln!("AAA: {cmd2} {dbg_s}");
-        }
-        status
+        run_command(&cmd2, &args_v, "AAA")?
     } else {
-        //
         let sccache = {
             let s = config.build.rustc_wrapper;
             if s.is_empty() {
@@ -37,21 +24,26 @@ fn main() -> Result<()> {
                 s.clone()
             }
         };
-        let status = std::process::Command::new(&sccache)
-            .args(&args_v)
-            .status()
-            .unwrap_or_else(|_| panic!("failed to execute process: {}", sccache));
-        if !status.success() {
-            let dbg_s = args_v.join(" ");
-            eprintln!("BBB: {sccache} {dbg_s}");
-        }
-        status
+        run_command(&sccache, &args_v, "BBB")?
     };
     if !exit_status.success() {
-        let code = exit_status.code().unwrap();
+        let code = exit_status.code().unwrap_or(1);
         std::process::exit(code);
     }
     Ok(())
+}
+
+fn run_command(command: &str, args: &[String], debug_label: &str) -> Result<std::process::ExitStatus> {
+    let status = std::process::Command::new(command)
+        .args(args)
+        .status()
+        .unwrap_or_else(|_| panic!("failed to execute process: {}", command));
+
+    if !status.success() {
+        let dbg_s = args.join(" ");
+        eprintln!("{}: {} {}", debug_label, command, dbg_s);
+    }
+    Ok(status)
 }
 
 fn load_config() -> Result<Config> {

@@ -7,12 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+
+## [0.2.0] (2026-05-31)
 ### Added
 * Code review report: `docs/reviews/2026-05-31_code_review.2.md`
 * Code review report: `docs/reviews/2026-05-31_code_review.1.md`
 * Support for `SCCACHE_EXCLUSIVE_CONFIG` environment variable to override the default configuration file path.
 
 ### Changed
+* rust-version = "1.85.0"
 * Refactored configuration path handling to use the `dirs` crate for cross-platform compatibility, removing direct reliance on the `HOME` environment variable.
 * Refactored `is_exclusive()` logic to use idiomatic `Iterator::all()` while maintaining the AND-condition.
 * Implemented strict, boundary-aware matching in `is_exclusive()` to prevent substring-based false positives.
@@ -24,7 +27,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Corrected string interpolation in `expect()` error messages.
 * Addressed `clippy::expect_fun_call` warning by using `unwrap_or_else` instead of `expect(&format!(...))`.
 * `clippy::useless_borrows_in_formatting`
-
 
 ## [0.1.2] (2026-01-16)
 ### Added
@@ -42,7 +44,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.1.0] (2025-10-30)
 * first commit
 
-[Unreleased]: https://github.com/aki-akaguma/sccache-exclusive/compare/v0.1.2..HEAD
-[0.1.2]: https://github.com/aki-akaguma/sccache-exclusive/compare/v0.1.2..v0.1.2
+[Unreleased]: https://github.com/aki-akaguma/sccache-exclusive/compare/v0.2.0..HEAD
+[0.2.0]: https://github.com/aki-akaguma/sccache-exclusive/compare/v0.1.2..v0.2.0
+[0.1.2]: https://github.com/aki-akaguma/sccache-exclusive/compare/v0.1.1..v0.1.2
 [0.1.1]: https://github.com/aki-akaguma/sccache-exclusive/compare/v0.1.0..v0.1.1
 [0.1.0]: https://github.com/aki-akaguma/sccache-exclusive/releases/tag/v0.1.0

@@ -1,6 +1,6 @@
 [package]
 name = "sccache-exclusive"
-version = "0.1.2"
+version = "0.2.0"
 edition = "2021"
 
 authors = ["aki <aki.akaguma@hotmail.com>"]
@@ -11,7 +11,7 @@ categories = ["command-line-utilities", "development-tools::build-utils"]
 keywords = ["ccache", "sccache"]
 license = "MIT OR Apache-2.0"
 readme = "README.md"
-rust-version = "1.76.0"
+rust-version = "1.85.0"
 repository = "https://github.com/aki-akaguma/sccache-exclusive"
 
 [[bin]]

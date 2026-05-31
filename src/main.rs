@@ -69,6 +69,9 @@ fn load_config() -> Result<Config> {
 }
 
 fn config_path() -> Result<PathBuf> {
+    if let Ok(path_str) = std::env::var("SCCACHE_EXCLUSIVE_CONFIG") {
+        return Ok(PathBuf::from(path_str));
+    }
     let mut pb = dirs::config_dir()
         .ok_or_else(|| anyhow::anyhow!("Could not find config directory"))?;
     pb.push("sccache-exclusive.toml");

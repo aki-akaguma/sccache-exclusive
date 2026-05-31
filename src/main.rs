@@ -8,7 +8,7 @@ fn main() -> Result<()> {
     let _cmd = args_v.remove(0);
     let config = load_config()?;
     let b = {
-        let args_s = args_v.join(" ");
+        let args_s = format!(" {} ", args_v.join(" "));
         is_exclusive(&config, &args_s)
     };
     let exit_status = if b {
@@ -98,10 +98,10 @@ string = "--crate-name wayland_protocols"
 fn is_exclusive(config: &Config, args_s: &str) -> bool {
     for exclusive in config.exclusive.iter() {
         if let Some(v) = &exclusive.strings {
-            if v.iter().all(|s| args_s.contains(s)) {
+            if v.iter().all(|s| args_s.contains(&format!(" {} ", s))) {
                 return true;
             }
-        } else if args_s.contains(&exclusive.string) {
+        } else if args_s.contains(&format!(" {} ", &exclusive.string)) {
             return true;
         }
     }

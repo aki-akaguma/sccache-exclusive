@@ -20,7 +20,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Renamed debug labels in `run_command` calls for better clarity.
 
 ### Fixed
-* Fixed incorrect string interpolation in `expect()` error messages.
+* Addressed potential panics in `main` and `run_command` by adding input validation and proper error propagation.
+* Corrected string interpolation in `expect()` error messages.
 * Addressed `clippy::expect_fun_call` warning by using `unwrap_or_else` instead of `expect(&format!(...))`.
 * `clippy::useless_borrows_in_formatting`
 

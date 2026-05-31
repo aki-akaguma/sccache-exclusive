@@ -5,6 +5,9 @@ use std::path::PathBuf;
 fn main() -> Result<()> {
     let args = std::env::args();
     let mut args_v: Vec<String> = args.collect();
+    if args_v.is_empty() {
+        return Err(anyhow::anyhow!("No arguments provided"));
+    }
     let _cmd = args_v.remove(0);
     let config = load_config()?;
     let b = {
@@ -41,7 +44,7 @@ fn run_command(
     let status = std::process::Command::new(command)
         .args(args)
         .status()
-        .unwrap_or_else(|_| panic!("failed to execute process: {}", command));
+        .map_err(|e| anyhow::anyhow!("Failed to execute '{}': {}", command, e))?;
 
     if !status.success() {
         let dbg_s = args.join(" ");

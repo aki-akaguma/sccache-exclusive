@@ -33,7 +33,11 @@ fn main() -> Result<()> {
     Ok(())
 }
 
-fn run_command(command: &str, args: &[String], debug_label: &str) -> Result<std::process::ExitStatus> {
+fn run_command(
+    command: &str,
+    args: &[String],
+    debug_label: &str,
+) -> Result<std::process::ExitStatus> {
     let status = std::process::Command::new(command)
         .args(args)
         .status()
@@ -64,8 +68,8 @@ fn config_path() -> Result<PathBuf> {
     if let Ok(path_str) = std::env::var("SCCACHE_EXCLUSIVE_CONFIG") {
         return Ok(PathBuf::from(path_str));
     }
-    let mut pb = dirs::config_dir()
-        .ok_or_else(|| anyhow::anyhow!("Could not find config directory"))?;
+    let mut pb =
+        dirs::config_dir().ok_or_else(|| anyhow::anyhow!("Could not find config directory"))?;
     pb.push("sccache-exclusive.toml");
     Ok(pb)
 }
@@ -101,7 +105,7 @@ fn is_exclusive(config: &Config, args_s: &str) -> bool {
             if v.iter().all(|s| args_s.contains(&format!(" {} ", s))) {
                 return true;
             }
-        } else if args_s.contains(&format!(" {} ", &exclusive.string)) {
+        } else if args_s.contains(&format!(" {} ", exclusive.string)) {
             return true;
         }
     }

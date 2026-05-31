@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+* Code review report: `docs/reviews/2026-05-31_code_review.2.md`
 * Code review report: `docs/reviews/2026-05-31_code_review.1.md`
 * Support for `SCCACHE_EXCLUSIVE_CONFIG` environment variable to override the default configuration file path.
 

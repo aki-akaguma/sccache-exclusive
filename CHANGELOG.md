@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Refactored `is_exclusive()` logic to use idiomatic `Iterator::all()` while maintaining the AND-condition.
 * Implemented strict, boundary-aware matching in `is_exclusive()` to prevent substring-based false positives.
 * Extracted duplicated command execution logic into a `run_command` helper function to improve maintainability.
+* Renamed debug labels in `run_command` calls for better clarity.
 
 ### Fixed
 * Fixed incorrect string interpolation in `expect()` error messages.

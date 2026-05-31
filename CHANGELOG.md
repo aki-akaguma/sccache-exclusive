@@ -10,6 +10,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 * Code review report: `docs/reviews/2026-05-31_code_review.1.md`
 
+### Fixed
+* Fixed incorrect string interpolation in `expect()` error messages.
+* Addressed `clippy::expect_fun_call` warning by using `unwrap_or_else` instead of `expect(&format!(...))`.
+
 
 ## [0.1.2] (2026-01-16)
 ### Added

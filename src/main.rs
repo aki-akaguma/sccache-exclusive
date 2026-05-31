@@ -20,7 +20,7 @@ fn main() -> Result<()> {
         let status = std::process::Command::new(&cmd2)
             .args(&args_v)
             .status()
-            .expect("failed to execute process: {sccache}");
+            .unwrap_or_else(|_| panic!("failed to execute process: {}", cmd2));
         if !status.success() {
             let dbg_s = args_v.join(" ");
             eprintln!("AAA: {cmd2} {dbg_s}");
@@ -40,7 +40,7 @@ fn main() -> Result<()> {
         let status = std::process::Command::new(&sccache)
             .args(&args_v)
             .status()
-            .expect("failed to execute process: {sccache}");
+            .unwrap_or_else(|_| panic!("failed to execute process: {}", sccache));
         if !status.success() {
             let dbg_s = args_v.join(" ");
             eprintln!("BBB: {sccache} {dbg_s}");

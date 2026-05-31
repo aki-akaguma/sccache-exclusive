@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 * Refactored configuration path handling to use the `dirs` crate for cross-platform compatibility, removing direct reliance on the `HOME` environment variable.
+* Refactored `is_exclusive()` logic to use idiomatic `Iterator::all()` while maintaining the AND-condition.
 
 ### Fixed
 * Fixed incorrect string interpolation in `expect()` error messages.

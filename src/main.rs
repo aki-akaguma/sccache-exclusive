@@ -106,14 +106,10 @@ string = "--crate-name wayland_protocols"
 fn is_exclusive(config: &Config, args_s: &str) -> bool {
     for exclusive in config.exclusive.iter() {
         if let Some(v) = &exclusive.strings {
-            for string in v {
-                if let Some(_n) = args_s.find(string) {
-                    continue;
-                }
-                return false;
+            if v.iter().all(|s| args_s.contains(s)) {
+                return true;
             }
-            return true;
-        } else if let Some(_n) = args_s.find(&exclusive.string) {
+        } else if args_s.contains(&exclusive.string) {
             return true;
         }
     }

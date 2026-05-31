@@ -13,7 +13,7 @@ fn main() -> Result<()> {
     };
     let exit_status = if b {
         let cmd2 = args_v.remove(0);
-        run_command(&cmd2, &args_v, "AAA")?
+        run_command(&cmd2, &args_v, "exclusive-cmd")?
     } else {
         let sccache = {
             let s = config.build.rustc_wrapper;
@@ -24,7 +24,7 @@ fn main() -> Result<()> {
                 s.clone()
             }
         };
-        run_command(&sccache, &args_v, "BBB")?
+        run_command(&sccache, &args_v, "sccache-cmd")?
     };
     if !exit_status.success() {
         let code = exit_status.code().unwrap_or(1);

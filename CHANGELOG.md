@@ -2,47 +2,51 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-05-31
 
-## [0.2.0] (2026-05-31)
 ### Added
-* Code review report: `docs/reviews/2026-05-31_code_review.2.md`
-* Code review report: `docs/reviews/2026-05-31_code_review.1.md`
-* Support for `SCCACHE_EXCLUSIVE_CONFIG` environment variable to override the default configuration file path.
+- Include code review report `docs/reviews/2026-05-31_code_review.2.md`.
+- Include code review report `docs/reviews/2026-05-31_code_review.1.md`.
+- Support `SCCACHE_EXCLUSIVE_CONFIG` environment variable to override the default configuration file path.
 
 ### Changed
-* rust-version = "1.85.0"
-* Refactored configuration path handling to use the `dirs` crate for cross-platform compatibility, removing direct reliance on the `HOME` environment variable.
-* Refactored `is_exclusive()` logic to use idiomatic `Iterator::all()` while maintaining the AND-condition.
-* Implemented strict, boundary-aware matching in `is_exclusive()` to prevent substring-based false positives.
-* Extracted duplicated command execution logic into a `run_command` helper function to improve maintainability.
-* Renamed debug labels in `run_command` calls for better clarity.
+- Update `rust-version` to 1.85.0.
+- Refactor configuration path handling to use the `dirs` crate for cross-platform compatibility, removing direct reliance on the `HOME` environment variable.
+- Refactor `is_exclusive()` logic to use idiomatic `Iterator::all()` while maintaining the AND-condition.
+- Implement strict, boundary-aware matching in `is_exclusive()` to prevent substring-based false positives.
+- Extract duplicated command execution logic into a `run_command` helper function to improve maintainability.
+- Rename debug labels in `run_command` calls for better clarity.
 
 ### Fixed
-* Addressed potential panics in `main` and `run_command` by adding input validation and proper error propagation.
-* Corrected string interpolation in `expect()` error messages.
-* Addressed `clippy::expect_fun_call` warning by using `unwrap_or_else` instead of `expect(&format!(...))`.
-* `clippy::useless_borrows_in_formatting`
+- Address potential panics in `main` and `run_command` by adding input validation and proper error propagation.
+- Correct string interpolation in `expect()` error messages.
+- Address `clippy::expect_fun_call` warning by using `unwrap_or_else` instead of `expect(&format!(...))`.
+- Address `clippy::useless_borrows_in_formatting` warning.
 
-## [0.1.2] (2026-01-16)
-### Added
-* `strings` into `sccache-exclusive.toml`
+## [0.1.2] - 2026-01-16
 
-## [0.1.1] (2025-10-30)
 ### Added
-* README.md
-* `.github/workflow`
+- Support `strings` in `sccache-exclusive.toml`.
+
+## [0.1.1] - 2025-10-30
+
+### Added
+- Include documentation in `README.md`.
+- Implement GitHub Actions workflows in `.github/workflows`.
 
 ### Fixed
-* bug: faile of exit status
-* clippy: `clippy::incompatible_msrv`
+- Resolve exit status failure.
+- Resolve `clippy::incompatible_msrv` warning.
 
-## [0.1.0] (2025-10-30)
-* first commit
+## [0.1.0] - 2025-10-30
+
+### Added
+- Initial release.
 
 [Unreleased]: https://github.com/aki-akaguma/sccache-exclusive/compare/v0.2.0..HEAD
 [0.2.0]: https://github.com/aki-akaguma/sccache-exclusive/compare/v0.1.2..v0.2.0
